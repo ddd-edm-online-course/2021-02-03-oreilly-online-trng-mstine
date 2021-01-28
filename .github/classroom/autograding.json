@@ -1,0 +1,84 @@
+{
+  "tests": [
+    {
+      "name": "Setup Lab",
+      "setup": "",
+      "run": "mvn test -B -P FirstSubmission",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 1 - TDD Aggregate Root",
+      "setup": "",
+      "run": "mvn test -B -P Lab1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 2 - TDD Aggregate Root",
+      "setup": "",
+      "run": "mvn test -B -P Lab2",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 3 - TDD Aggregate Repository",
+      "setup": "",
+      "run": "mvn test -B -P Lab3",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 4 - TDD Aggregate Repository",
+      "setup": "",
+      "run": "mvn test -B -P Lab4",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 5 - TDD Policy",
+      "setup": "",
+      "run": "mvn test -B -P Lab5",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 6 - TDD Application Service",
+      "setup": "",
+      "run": "mvn test -B -P Lab6",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Lab 7 - TDD Policy",
+      "setup": "",
+      "run": "mvn test -B -P Lab7",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.mattstine.dddworkshop.pizzashop.kitchen;
 
 import com.mattstine.dddworkshop.pizzashop.infrastructure.events.ports.EventLog;
+import com.mattstine.dddworkshop.pizzashop.infrastructure.events.ports.Topic;
 import com.mattstine.dddworkshop.pizzashop.infrastructure.repository.ports.Aggregate;
 import com.mattstine.dddworkshop.pizzashop.infrastructure.repository.ports.AggregateState;
 import com.mattstine.dddworkshop.pizzashop.ordering.OnlineOrderRef;
@@ -52,6 +53,7 @@ public final class KitchenOrder implements Aggregate {
             throw new IllegalStateException("can only startPrep() from State.NEW");
         }
         this.state = State.PREPPING;
+        this.$eventLog.publish(new Topic("kitchen_orders"), new KitchenOrderPrepStartedEvent(this.ref));
     }
 
     boolean isPrepping() {
@@ -63,6 +65,7 @@ public final class KitchenOrder implements Aggregate {
             throw new IllegalStateException();
         }
         this.state = State.BAKING;
+        this.$eventLog.publish(new Topic("kitchen_orders"), new KitchenOrderBakeStartedEvent(this.ref));
     }
 
     boolean isBaking() {
@@ -74,6 +77,7 @@ public final class KitchenOrder implements Aggregate {
             throw new IllegalStateException();
         }
         this.state = State.ASSEMBLING;
+        this.$eventLog.publish(new Topic("kitchen_orders"), new KitchenOrderAssemblyStartedEvent(this.ref));
     }
 
     boolean hasStartedAssembly() {
@@ -85,6 +89,7 @@ public final class KitchenOrder implements Aggregate {
             throw new IllegalStateException();
         }
         this.state = State.ASSEMBLED;
+        this.$eventLog.publish(new Topic("kitchen_orders"), new KitchenOrderAssemblyFinishedEvent(this.ref));
     }
 
     boolean hasFinishedAssembly() {

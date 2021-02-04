@@ -1,5 +1,6 @@
 package com.mattstine.dddworkshop.pizzashop.kitchen;
 
+import com.mattstine.dddworkshop.pizzashop.infrastructure.events.adapters.InProcessEventLog;
 import com.mattstine.dddworkshop.pizzashop.infrastructure.events.ports.EventLog;
 import com.mattstine.dddworkshop.pizzashop.infrastructure.events.ports.Topic;
 import com.mattstine.dddworkshop.pizzashop.infrastructure.repository.ports.Aggregate;
@@ -98,7 +99,12 @@ public final class Pizza implements Aggregate {
 
     @Override
     public Pizza identity() {
-        return null;
+        return Pizza.builder()
+                .ref(PizzaRef.IDENTITY)
+                .kitchenOrderRef(KitchenOrderRef.IDENTITY)
+                .size(Size.IDENTITY)
+                .eventLog(EventLog.IDENTITY)
+                .build();
     }
 
     @Override
@@ -132,6 +138,27 @@ public final class Pizza implements Aggregate {
 
         @Override
         public Pizza apply(Pizza pizza, PizzaEvent pizzaEvent) {
+            if (pizzaEvent instanceof PizzaAddedEvent) {
+                PizzaAddedEvent pae = (PizzaAddedEvent) pizzaEvent;
+                return Pizza.builder()
+                        .ref(pae.getRef())
+                        .kitchenOrderRef(pae.getState().getKitchenOrderRef())
+                        .size(pae.getState().getSize())
+                        .eventLog(InProcessEventLog.instance())
+                        .build();
+            } else if (pizzaEvent instanceof PizzaPrepStartedEvent) {
+                pizza.state = State.PREPPING;
+                return pizza;
+            } else if (pizzaEvent instanceof PizzaPrepFinishedEvent) {
+                pizza.state = State.PREPPED;
+                return pizza;
+            } else if (pizzaEvent instanceof PizzaBakeStartedEvent) {
+                pizza.state = State.BAKING;
+                return pizza;
+            } else if (pizzaEvent instanceof PizzaBakeFinishedEvent) {
+                pizza.state = State.BAKED;
+                return pizza;
+            }
             return null;
         }
     }
